@@ -21,5 +21,6 @@
 🔹 策略虧損原因分析
 
 ## 📉 實測成果
-<img width="866" height="524" alt="image" src="https://github.com/user-attachments/assets/24e40703-35ba-476c-bc84-9f84e0cc855f" />
+<img width="865" height="574" alt="image" src="https://github.com/user-attachments/assets/8143fd39-b964-40b7-8784-269539c3c017" />
+
 
