@@ -25,7 +25,8 @@
 - **雲端整合**：GitHub Actions, Discord API
 
 ## 📉 實測成果
-*(建議這裡之後可以補上一張你跑出來的分析截圖，效果會非常好)*
+<img width="866" height="524" alt="image" src="https://github.com/user-attachments/assets/24e40703-35ba-476c-bc84-9f84e0cc855f" />
+
 
 ## 📦 安裝與執行
 1. 安裝套件：
