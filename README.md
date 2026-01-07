@@ -16,6 +16,6 @@
 - **功能**：自動輸出交易紀錄 CSV，拆分多單與空單績效，產出 Equity Curve 圖表。
 - **技術**：Python、CCXT、Pandas、Matplotlib、GitHub Codespaces
 
-### 4. [04_銅交易預測工具_11210320_洪偉哲](./04_System_Name)
+### 4. [04_銅交易預測工具_11210320_洪偉哲](./04_Copper_Trading_System)
 - **功能**：數據獲取、數據預處理、 LSTM 模型、評估指標、未來預測、視覺化.
 - **技術**：GitHub、Python 、yfinance、matplotlib
