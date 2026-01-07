@@ -1,0 +1,53 @@
+//@version=5
+indicator("EMA Crossover with RSI Pullback Strategy", overlay=true)
+
+// 輸入參數
+fastLength = input.int(20, "Fast EMA", minval=1)
+slowLength = input.int(50, "Slow EMA", minval=1)
+rsiLength = input.int(14, "RSI Length", minval=1)
+rsiOverbought = input.float(70, "RSI Overbought Level", minval=0, maxval=100)
+rsiTargetMin = input.float(45, "RSI Target Min", minval=0, maxval=100)
+rsiTargetMax = input.float(55, "RSI Target Max", minval=0, maxval=100)
+
+// 計算指標
+fastEMA = ta.ema(close, fastLength)
+slowEMA = ta.ema(close, slowLength)
+rsi = ta.rsi(close, rsiLength)
+
+// 繪製EMA線
+plot(fastEMA, color=color.blue, title="Fast EMA")
+plot(slowEMA, color=color.red, title="Slow EMA")
+
+// 趨勢條件：20 EMA > 50 EMA
+trendCondition = fastEMA > slowEMA
+
+// RSI 從超買區回落至目標區間的條件
+rsiWasOverbought = ta.valuewhen(rsi >= rsiOverbought, rsi, 1) >= rsiOverbought
+rsiInTargetZone = rsi >= rsiTargetMin and rsi <= rsiTargetMax
+rsiPullbackCondition = rsiWasOverbought and rsiInTargetZone
+
+// RSI 勾頭向上的條件 (當前RSI > 前一個RSI)
+rsiBullishHook = rsi > rsi[1]
+
+// 價格回測 20 EMA 的條件
+// 價格在前一根K線低於或等於20 EMA，在當前K線高於20 EMA
+priceRetestCondition = low[1] <= fastEMA[1] and high >= fastEMA
+
+// 綜合買入條件
+buyCondition = trendCondition and priceRetestCondition and rsiPullbackCondition and rsiBullishHook
+
+// 發出買入訊號
+if buyCondition
+    label.new(bar_index, low, "BUY", style=label.style_label_up, color=color.green, textcolor=color.white)
+
+// 繪製背景顏色表示趨勢
+bgcolor(trendCondition ? color.new(color.green, 95) : color.new(color.red, 95))
+
+// 繪製RSI指標在單獨面板
+plot(rsi, color=color.purple, title="RSI", linewidth=2)
+
+// RSI 超買超賣線
+hline(rsiOverbought, "Overbought", color=color.red)
+hline(rsiTargetMin, "Target Min", color=color.orange)
+hline(rsiTargetMax, "Target Max", color=color.orange)
+hline(30, "Oversold", color=color.green)
